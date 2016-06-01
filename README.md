@@ -2,7 +2,7 @@
 
 ## API
 
-`BASE_URL` = `{HOST}/jira/rest/bulletin/1`
+    BASE_URL = {HOST}/rest/bulletin/1
 
 ### Bulletins
 
@@ -71,4 +71,8 @@
 
 **200**
 
-_Empty Body_
+````json
+{
+    "message": "OK"
+}
+````
