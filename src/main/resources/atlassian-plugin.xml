@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="bulletin"/>
+  <!-- add our web resources -->
+  <web-resource key="bulletin-resources" name="bulletin Web Resources">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="bulletin.css" location="/css/bulletin.css"/>
+    <resource type="download" name="bulletin.js" location="/js/bulletin.js"/>
+    <resource type="download" name="images/" location="/images"/>
+    <context>gh-rapid</context>
+  </web-resource>
+  <rest name="Bulletin Resource" i18n-name-key="bulletin-resource.name" key="bulletin-resource" path="/bulletin" version="1">
+    <description key="bulletin-resource.description">The Bulletin Resource Plugin</description>
+  </rest>
+  <ao key="ao-module">
+    <description>The module configuring the Active Objects service used by this plugin</description>
+    <entity>me.jromero.ao.BulletinPdo</entity>
+  </ao>
+</atlassian-plugin>
