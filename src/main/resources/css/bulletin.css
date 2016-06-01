@@ -1,0 +1,22 @@
+#bulletins-container {
+    position: fixed !important;
+    top: 0px;
+    right: 0px;
+    z-index: 99;
+    width: 300px;
+    height: 100%;
+}
+
+#bulletins-container .aui-page-panel {
+    margin-top: 0;
+    border-left-width: 1px;
+    height: 100%;
+}
+
+#bulletins-tab-label {
+    position:fixed !important;
+    float: left;
+    transform: rotate(90deg);
+    transform-origin: left top 0;
+    border-radius: 0;
+}
