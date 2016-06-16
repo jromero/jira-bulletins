@@ -135,6 +135,7 @@
                 <configuration>
                     <productVersion>${jira.version}</productVersion>
                     <productDataVersion>${jira.version}</productDataVersion>
+                    <compressResources>true</compressResources>
                     <!-- Uncomment to install TestKit backdoor in JIRA. -->
                     <!--
 					<pluginArtifacts>

@@ -1,16 +1,29 @@
+#bulletins-container,
+#bulletins-tabs,
+#bulletins-container .aui-page-panel,
+#bulletins-container .aui-page-panel-inner {
+    height: 100%;
+}
+
 #bulletins-container {
     position: fixed !important;
     top: 0px;
     right: 0px;
     z-index: 99;
-    width: 300px;
-    height: 100%;
+    width: 0;
 }
 
 #bulletins-container .aui-page-panel {
     margin-top: 0;
     border-left-width: 1px;
-    height: 100%;
+}
+
+#bulletins-content {
+    display: table-cell;
+}
+
+#bulletins-tabs {
+    position: relative;
 }
 
 #bulletins-tab-label {
@@ -19,4 +32,11 @@
     transform: rotate(90deg);
     transform-origin: left top 0;
     border-radius: 0;
+}
+
+#bulletins-container .tabs-pane .aui-button.aui-button-primary {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 0 0 35px 0;
 }
