@@ -1,0 +1,4 @@
+# JS files should be generated via typescript compiler
+*
+
+!.gitignore
