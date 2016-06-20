@@ -3,8 +3,12 @@ class PostDialog {
   private _projectKey: string
   private _element: JElement
   private _content: JElement
+  private _submitButton: JElement
+  private _closeButton: JElement
 
   constructor(projectKey: string, id?: number) {
+    var that = this
+
     this._projectKey = projectKey
 
     this._element =
@@ -30,8 +34,8 @@ class PostDialog {
             </div>
             <footer class="aui-dialog2-footer">
               <div class="aui-dialog2-footer-actions">
-                <button id="dialog-submit-button" class="aui-button aui-button-primary">OK</button>
-                <button id="dialog-close-button" class="aui-button aui-button-link">Close</button>
+                <button class="aui-button aui-button-primary bulletins-submit-button">OK</button>
+                <button class="aui-button aui-button-link bulletins-close-button">Close</button>
               </div>
               <div class="aui-dialog2-footer-hint"><i>Markdown</i> is supported</div>
             </footer>
@@ -39,7 +43,36 @@ class PostDialog {
         </section>`
       )
 
-    this._content = AJS.$(".aui-dialog2-content")
+    this._content = this._element.find(".aui-dialog2-content")
+    this._submitButton = this._element.find(".bulletins-submit-button")
+    this._closeButton = this._element.find(".bulletins-close-button")
+
+    this._submitButton.click(function (e) {
+      e.preventDefault()
+
+      AJS.$.ajax({
+        url: `${AJS.params.baseURL}/rest/bulletins/1/boards/${projectKey}/bulletins`,
+        type: "POST",
+        data: JSON.stringify({
+          title: "",
+          body: that._content.find("textarea").val()
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+          AJS.log("Received response!")
+          AJS.log("Response: " + JSON.stringify(data))
+
+          AJS.dialog2(`#${that.id}`).hide();
+        }
+      })
+    })
+
+    this._closeButton.click(function (e) {
+      e.preventDefault()
+
+      AJS.dialog2(`#${that.id}`).hide();
+    })
   }
 
   get id(): string {
