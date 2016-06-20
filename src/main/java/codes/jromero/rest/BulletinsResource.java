@@ -1,10 +1,10 @@
-package me.jromero.rest;
+package codes.jromero.rest;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import me.jromero.ao.BulletinPdo;
+import codes.jromero.ao.BulletinPdo;
 import net.java.ao.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

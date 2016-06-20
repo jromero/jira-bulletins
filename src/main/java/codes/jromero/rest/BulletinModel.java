@@ -1,4 +1,4 @@
-package me.jromero.rest;
+package codes.jromero.rest;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

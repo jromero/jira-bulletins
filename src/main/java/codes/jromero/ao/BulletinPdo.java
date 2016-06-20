@@ -1,7 +1,6 @@
-package me.jromero.ao;
+package codes.jromero.ao;
 
 import net.java.ao.Entity;
-import net.java.ao.Preload;
 
 public interface BulletinPdo extends Entity {
 

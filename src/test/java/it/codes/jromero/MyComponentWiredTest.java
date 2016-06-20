@@ -1,9 +1,9 @@
-package it.me.jromero;
+package it.codes.jromero;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.atlassian.plugins.osgi.test.AtlassianPluginsTestRunner;
-import me.jromero.api.MyPluginComponent;
+import codes.jromero.api.MyPluginComponent;
 import com.atlassian.sal.api.ApplicationProperties;
 
 import static org.junit.Assert.assertEquals;

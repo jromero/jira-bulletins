@@ -1,10 +1,8 @@
-package it.me.jromero.rest;
+package it.codes.jromero.rest;
 
 import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
-
-import static org.junit.Assert.*;
 
 import org.apache.wink.client.Resource;
 import org.apache.wink.client.RestClient;

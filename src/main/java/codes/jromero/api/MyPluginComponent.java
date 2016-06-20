@@ -1,4 +1,4 @@
-package me.jromero.api;
+package codes.jromero.api;
 
 public interface MyPluginComponent
 {

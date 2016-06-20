@@ -40,3 +40,10 @@
     bottom: 0;
     margin: 0 0 35px 0;
 }
+
+.bulletins-dialog form.aui .textarea {
+    width: 100%;
+    height: 150px;
+    resize: vertical;
+    max-width: 100%;
+}

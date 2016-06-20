@@ -9,20 +9,20 @@
     <param name="plugin-logo">images/pluginLogo.png</param>
   </plugin-info>
   <!-- add our i18n resource -->
-  <resource type="i18n" name="i18n" location="bulletin"/>
+  <resource type="i18n" name="i18n" location="bulletins"/>
   <!-- add our web resources -->
-  <web-resource key="bulletin-resources" name="bulletin Web Resources">
+  <web-resource key="bulletins-resources" name="Bulletins Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
-    <resource type="download" name="bulletin.css" location="/css/bulletin.css"/>
-    <resource type="download" name="bulletin.js" location="/js/bulletin.js"/>
+    <resource type="download" name="bulletins.css" location="/css/bulletins.css"/>
+    <resource type="download" name="bulletins.js" location="/js/bulletins.js"/>
     <resource type="download" name="images/" location="/images"/>
     <context>gh-rapid</context>
   </web-resource>
-  <rest name="Bulletin Resource" i18n-name-key="bulletin-resource.name" key="bulletin-resource" path="/bulletin" version="1">
-    <description key="bulletin-resource.description">The Bulletin Resource Plugin</description>
+  <rest name="Bulletins Resource" i18n-name-key="bulletins-resource.name" key="bulletins-resource" path="/bulletins" version="1">
+    <description key="bulletins-resource.description">The Bulletins Resource Plugin</description>
   </rest>
   <ao key="ao-module">
     <description>The module configuring the Active Objects service used by this plugin</description>
-    <entity>me.jromero.ao.BulletinPdo</entity>
+    <entity>codes.jromero.ao.BulletinPdo</entity>
   </ao>
 </atlassian-plugin>
