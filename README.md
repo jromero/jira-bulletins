@@ -44,8 +44,8 @@
     "bulletins": [
         {
             "id": 1,
-            "title": "...",
             "body": "...",
+            "rendered": "...",
             "createdBy": "",
             "createdAt": 1464542825266,
             "updatedAt": 1464542825266
@@ -62,7 +62,6 @@
 
 ````json
 {
-    "title": "...",
     "body": "..."
 }
 ````
@@ -74,8 +73,8 @@
 ````json
 {
     "id": 1,
-    "title": "...",
     "body": "...",
+    "rendered": "...",
     "createdBy": "",
     "createdAt": 1464542825266,
     "updatedAt": 1464542825266
@@ -95,5 +94,29 @@
 ````json
 {
     "message": "OK"
+}
+````
+
+### Markdown
+
+##### POST
+
+###### Request
+
+    POST {BASE_URL}/markdown
+
+````json
+{
+    "markdown": "..."
+}
+````
+
+###### Response
+
+**200**
+
+````json
+{
+    "html": "..."
 }
 ````
