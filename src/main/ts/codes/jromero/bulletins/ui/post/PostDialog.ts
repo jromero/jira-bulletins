@@ -6,7 +6,7 @@ class PostDialog {
   private _submitButton: JElement
   private _closeButton: JElement
 
-  constructor(projectKey: string, id?: number) {
+  constructor(bulletinsRepo: BulletinsRepo, projectKey: string, id?: number) {
     var that = this
 
     this._projectKey = projectKey
@@ -50,21 +50,10 @@ class PostDialog {
     this._submitButton.click(function (e) {
       e.preventDefault()
 
-      AJS.$.ajax({
-        url: `${AJS.params.baseURL}/rest/bulletins/1/boards/${projectKey}/bulletins`,
-        type: "POST",
-        data: JSON.stringify({
-          title: "",
-          body: that._content.find("textarea").val()
-        }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-          AJS.log("Received response!")
-          AJS.log("Response: " + JSON.stringify(data))
-
-          AJS.dialog2(`#${that.id}`).hide();
-        }
+      var text = that._content.find("textarea").val()
+      bulletinsRepo.save(projectKey, new Bulletin(0, text), function (bulletin) {
+        AJS.log("Bulletin saved: " + JSON.stringify(bulletin))
+        AJS.dialog2(`#${that.id}`).hide();
       })
     })
 

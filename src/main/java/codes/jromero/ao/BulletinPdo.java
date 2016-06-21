@@ -8,10 +8,6 @@ public interface BulletinPdo extends Entity {
 
     void setProjectKey(String projectKey);
 
-    String getTitle();
-
-    void setTitle(String title);
-
     String getBody();
 
     void setBody(String body);

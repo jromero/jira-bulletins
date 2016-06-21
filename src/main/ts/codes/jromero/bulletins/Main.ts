@@ -1,22 +1,23 @@
-/// <reference path="../../../refs/atlassian/ajs/ajs.d.ts" />
-/// <reference path="../../../refs/jqueryui/jqueryui.d.ts" />
-/// <reference path="../../../refs/jquery/jquery.d.ts" />
+/// <reference path="../../../.refs/atlassian/ajs/ajs.d.ts" />
+/// <reference path="../../../.refs/jqueryui/jqueryui.d.ts" />
+/// <reference path="../../../.refs/jquery/jquery.d.ts" />
 
 type JElement = JQuery
 
 AJS.toInit(function () {
 
-  var bulletins = new Bulletins("Bulletin Board", 350)
+  var bulletinsRepo = new BulletinsRepo()
+  var bulletinBoard = new BulletinBoard("Bulletin Board", 350)
   var projectPanels = new ProjectPanels()
-  var projectPanelsController = new ProjectPanelsController(projectPanels);
+  var projectPanelsController = new ProjectPanelsController(bulletinsRepo, projectPanels);
 
-  AJS.$("body").append(bulletins.element)
+  AJS.$("body").append(bulletinBoard.element)
 
-  AJS.$.get(`${AJS.params.baseURL}/rest/greenhopper/1.0/xboard/work/allData?rapidViewId=1`, function (data) {
+  AJS.$.get(`${AJS.contextPath()}/rest/greenhopper/1.0/xboard/work/allData?rapidViewId=1`, function (data) {
     var projects: any[] = data.issuesData.projects
     if (projects.length > 0) {
 
-      bulletins.contents.append(projectPanels.element)
+      bulletinBoard.contents.append(projectPanels.element)
 
       var promises = projects.map((project) => {
         return AJS.$.get(`${AJS.params.baseURL}/rest/api/2/project/${project.id}`)
@@ -39,7 +40,7 @@ AJS.toInit(function () {
         })
       });
     } else {
-      AJS.messages.generic(bulletins.contents, {
+      AJS.messages.generic(bulletinBoard.contents, {
         title: 'No projects discovered for this board.',
         body: '<p>As issues are added, we can determine what projects are associated to this board.</p>',
         closeable: false

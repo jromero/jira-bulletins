@@ -12,9 +12,6 @@ public class BulletinModel {
     @XmlElement(name = "id")
     private int id;
 
-    @XmlElement(name = "title")
-    private String title;
-
     @XmlElement(name = "body")
     private String body;
 
@@ -32,9 +29,8 @@ public class BulletinModel {
      */
     public BulletinModel() {}
 
-    public BulletinModel(int id, String title, String body, String createdBy, long createdAt, long updatedAt) {
+    public BulletinModel(int id, String body, String createdBy, long createdAt, long updatedAt) {
         this.id = id;
-        this.title = title;
         this.body = body;
         this.createdBy = createdBy;
         this.createdAt = createdAt;
@@ -43,10 +39,6 @@ public class BulletinModel {
 
     public int getId() {
         return id;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public String getBody() {

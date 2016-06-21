@@ -1,4 +1,4 @@
-class Bulletins {
+class BulletinBoard {
 
   private _element: JElement
   private _handle: JElement

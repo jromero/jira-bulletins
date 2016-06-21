@@ -50,7 +50,6 @@ public class BulletinsResource {
         for (BulletinPdo bulletinPdo : bulletinPdos) {
             bulletins.add(new BulletinModel(
                     bulletinPdo.getID(),
-                    bulletinPdo.getTitle(),
                     bulletinPdo.getBody(),
                     bulletinPdo.getCreatedBy(),
                     bulletinPdo.getCreatedAt(),
@@ -69,7 +68,6 @@ public class BulletinsResource {
         BulletinPdo bulletinPdo = activeObjects.create(BulletinPdo.class);
 
         bulletinPdo.setProjectKey(projectKey);
-        bulletinPdo.setTitle(bulletin.getTitle());
         bulletinPdo.setBody(bulletin.getBody());
         bulletinPdo.setCreatedBy(jiraAuthenticationContext.getUser().getKey());
         bulletinPdo.setCreatedAt(System.currentTimeMillis());
@@ -78,7 +76,6 @@ public class BulletinsResource {
 
         BulletinModel bulletinModel = new BulletinModel(
                 bulletinPdo.getID(),
-                bulletinPdo.getTitle(),
                 bulletinPdo.getBody(),
                 bulletinPdo.getCreatedBy(),
                 bulletinPdo.getCreatedAt(),
