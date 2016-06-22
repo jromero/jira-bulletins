@@ -6,7 +6,7 @@ class PostDialog {
   private _submitButton: JElement
   private _closeButton: JElement
 
-  constructor(bulletinsRepo: BulletinsRepo, projectKey: string, id?: number) {
+  constructor(bulletinsRepo: BulletinsRepo, projectPanels: ProjectPanels, projectKey: string, id?: number) {
     var that = this
 
     this._projectKey = projectKey
@@ -53,7 +53,10 @@ class PostDialog {
       var text = that._content.find("textarea").val()
       bulletinsRepo.save(projectKey, new Bulletin(0, text), function (bulletin) {
         AJS.log("Bulletin saved: " + JSON.stringify(bulletin))
-        AJS.dialog2(`#${that.id}`).hide();
+
+        projectPanels.reloadContents(projectKey)
+
+        AJS.dialog2(`#${that.id}`).hide()
       })
     })
 

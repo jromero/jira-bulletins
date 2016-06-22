@@ -56,14 +56,23 @@ class ProjectPanels {
     }
   }
 
+  clearBulletins(projectKey: string) {
+    var projectPane = this._projectsPanes.get(projectKey)
+    if (projectPane != null) {
+      projectPane.find(".bulletins-bulletins").empty()
+    }
+  }
+
   paneId(projectKey: string): string {
     return `bulletins-tab-pane-${this.normalizeKey(projectKey)}`
   }
 
-  loadContents(projectKey: string) {
+  reloadContents(projectKey: string) {
     var that = this
 
-    this._bulletinsRepo.findAll(projectKey, function (response) {
+    that.clearBulletins(projectKey)
+
+    that._bulletinsRepo.findAll(projectKey, function (response) {
       for (let bulletin of response.bulletins) {
         that.addBulletin(projectKey, bulletin.rendered)
       }

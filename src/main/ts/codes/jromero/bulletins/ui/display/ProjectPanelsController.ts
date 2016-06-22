@@ -16,10 +16,10 @@ class ProjectPanelsController {
     var that = this
 
     this._projectPanels.addProject(projectKey)
-    this._projectPanels.loadContents(projectKey)
+    this._projectPanels.reloadContents(projectKey)
     this._projectPanels.setOnAddPostClickListener(projectKey, function () {
       AJS.log(`Displaying dialog for ${projectKey}`)
-      var postDialog = new PostDialog(that._bulletinsRepo, projectKey)
+      var postDialog = new PostDialog(that._bulletinsRepo, that._projectPanels, projectKey)
       AJS.$("body").append(postDialog.element)
       AJS.dialog2(`#${postDialog.id}`).show()
     })
