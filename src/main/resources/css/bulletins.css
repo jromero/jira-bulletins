@@ -1,19 +1,19 @@
 #bulletins-container,
 #bulletins-tabs,
-#bulletins-container .aui-page-panel,
-#bulletins-container .aui-page-panel-inner {
+#bulletins-container > .aui-page-panel,
+#bulletins-container > .aui-page-panel > .aui-page-panel-inner {
     height: 100%;
 }
 
 #bulletins-container {
     position: fixed !important;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     z-index: 99;
     width: 0;
 }
 
-#bulletins-container .aui-page-panel {
+#bulletins-container > .aui-page-panel {
     margin-top: 0;
     border-left-width: 1px;
 }
@@ -27,23 +27,78 @@
 }
 
 #bulletins-tab-label {
-    position:fixed !important;
+    position: fixed !important;
+    top: 30%;
     float: left;
     transform: rotate(90deg);
     transform-origin: left top 0;
     border-radius: 0;
 }
 
+#bulletins-container .tabs-pane {
+    position: relative;
+    height: 100%;
+}
+
 #bulletins-container .tabs-pane .aui-button.aui-button-primary {
     position: absolute;
     right: 0;
     bottom: 0;
-    margin: 0 0 35px 0;
+    margin: 0 0 65px 0;
 }
 
 .bulletins-dialog form.aui .textarea {
     width: 100%;
     height: 150px;
     resize: vertical;
+    max-width: 100%;
+}
+
+.bulletins-bulletins {
+    position: absolute;
+    top: 0;
+    bottom: 110px;
+    overflow-y: auto;
+    width: 100%;
+    border-radius: 2px;
+}
+
+.bulletins-bulletins::-webkit-scrollbar {
+    width: 0 !important;
+}
+
+.bulletins-bulletin.aui-page-panel {
+    margin: 5px 0 5px 0;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    padding: 10px;
+    height: initial;
+}
+
+.bulletins-bulletin h1 {
+    font-size: 125%;
+}
+
+.bulletins-bulletin h2 {
+    font-size: 120%;
+}
+
+.bulletins-bulletin h3 {
+    font-size: 115%;
+}
+
+.bulletins-bulletin h4 {
+    font-size: 110%;
+}
+
+.bulletins-bulletin h5 {
+    font-size: 105%;
+}
+
+.bulletins-bulletin h6 {
+    font-size: 100%;
+}
+
+.bulletins-bulletin img {
     max-width: 100%;
 }

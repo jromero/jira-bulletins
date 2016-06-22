@@ -15,6 +15,8 @@ class Bulletin {
     return this._body
   }
 
+  rendered: string
+
   createdBy: string
 
   /**

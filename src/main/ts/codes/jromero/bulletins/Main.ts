@@ -8,7 +8,7 @@ AJS.toInit(function () {
 
   var bulletinsRepo = new BulletinsRepo()
   var bulletinBoard = new BulletinBoard("Bulletin Board", 350)
-  var projectPanels = new ProjectPanels()
+  var projectPanels = new ProjectPanels(bulletinsRepo)
   var projectPanelsController = new ProjectPanelsController(bulletinsRepo, projectPanels);
 
   AJS.$("body").append(bulletinBoard.element)

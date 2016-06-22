@@ -1,4 +1,4 @@
-package codes.jromero.rest;
+package codes.jromero.rest.dto;
 
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -9,7 +9,7 @@ import java.util.Collection;
 
 @XmlRootElement(name = "bulletins")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BulletinsModel {
+public class BulletinsDto {
 
     @XmlElement(name = "count")
     private int count;
@@ -18,14 +18,14 @@ public class BulletinsModel {
     private int totalCount;
 
     @XmlElement(name = "bulletins")
-    private Collection<BulletinModel> bulletins;
+    private Collection<BulletinDto> bulletins;
 
     /**
      * WARNING: Should not be used manually
      */
-    public BulletinsModel() {}
+    public BulletinsDto() {}
 
-    public BulletinsModel(int totalCount, Collection<BulletinModel> bulletins) {
+    public BulletinsDto(int totalCount, Collection<BulletinDto> bulletins) {
         this.count = bulletins.size();
         this.totalCount = totalCount;
         this.bulletins = bulletins;
