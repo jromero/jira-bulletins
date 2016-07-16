@@ -1,15 +1,11 @@
 class ProjectPanelsController {
 
-  private DATA_KEY_PROJECT: string = "data-project"
   private _bulletinsRepo: BulletinsRepo
   private _projectPanels: ProjectPanels
 
   constructor(bulletinsRepo: BulletinsRepo, projectPanels: ProjectPanels) {
     this._bulletinsRepo = bulletinsRepo
     this._projectPanels = projectPanels
-
-    var that = this
-
   }
 
   addProject(projectKey: string) {
@@ -23,6 +19,20 @@ class ProjectPanelsController {
       AJS.$("body").append(postDialog.element)
       AJS.dialog2(`#${postDialog.id}`).show()
     })
+
+    this._projectPanels.setOnEditPostClickListener(projectKey, function (bulletinId) {
+      AJS.log(`Displaying dialog for ${projectKey}, bulletin`)
+      var postDialog = new EditDialog(
+        that._bulletinsRepo,
+        that._projectPanels,
+        projectKey,
+        bulletinId
+      )
+
+      AJS.$("body").append(postDialog.element)
+      AJS.dialog2(`#${postDialog.id}`).show()
+    })
+
 
     AJS.tabs.setup();
   }

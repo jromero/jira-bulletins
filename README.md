@@ -54,6 +54,26 @@
 }
 ````
 
+###### Request
+
+    GET {BASE_URL}/boards/{PROJECT_KEY}/bulletins/{ID}
+
+###### Response
+
+**200**
+
+````json
+{
+    "id": 1,
+    "body": "...",
+    "rendered": "...",
+    "createdBy": "",
+    "createdAt": 1464542825266,
+    "updatedAt": 1464542825266
+}
+````
+
+
 ##### POST
 
 ###### Request

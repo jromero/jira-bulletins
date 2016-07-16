@@ -1,7 +1,5 @@
 package codes.jromero.rest.dto;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,10 +9,10 @@ public class BulletinDto {
     @XmlElement(name = "id")
     private int id;
 
-    @XmlElement(name = "body")
+    @XmlElement(name = "body", required = true)
     private String body;
 
-    @XmlElement(name = "rendered")
+    @XmlElement(name = "rendered", required = true)
     private String rendered;
 
     @XmlElement(name = "createdBy")

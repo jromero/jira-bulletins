@@ -13,6 +13,7 @@ import org.pegdown.PegDownProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nullable;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -49,16 +50,34 @@ public class BoardsResource {
 
         List<BulletinDto> bulletins = new ArrayList<BulletinDto>();
         for (BulletinPdo bulletinPdo : bulletinPdos) {
-            bulletins.add(new BulletinDto(
-                    bulletinPdo.getID(),
-                    bulletinPdo.getBody(),
-                    processor.markdownToHtml(bulletinPdo.getBody()),
-                    bulletinPdo.getCreatedBy(),
-                    bulletinPdo.getCreatedAt(),
-                    bulletinPdo.getUpdatedAt()));
+            BulletinDto bulletinDto = bulletinPdo2Dto(processor, bulletinPdo);
+            bulletins.add(bulletinDto);
         }
 
         return Response.ok(new BulletinsDto(totalCount, bulletins)).build();
+    }
+
+    @GET
+    @Path("{projectKey}/bulletins/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getBulletinById(
+            @PathParam("projectKey") String projectKey,
+            @PathParam("id") int id) {
+
+        List<BulletinPdo> bulletinPdos = Arrays.asList(activeObjects.find(
+                BulletinPdo.class,
+                Query.select().where("PROJECT_KEY = ? AND ID = ?", projectKey, id)));
+
+        if (bulletinPdos.size() >= 1) {
+            BulletinPdo bulletinPdo = bulletinPdos.get(0);
+
+            PegDownProcessor processor = new PegDownProcessor();
+            BulletinDto bulletinDto = bulletinPdo2Dto(processor, bulletinPdo);
+
+            return Response.ok(bulletinDto).build();
+        } else {
+            return Response.status(404).build();
+        }
     }
 
     @POST
@@ -68,24 +87,32 @@ public class BoardsResource {
     public Response postBulletin(@PathParam("projectKey") String projectKey, BulletinDto bulletin) {
 
         PegDownProcessor processor = new PegDownProcessor();
-        BulletinPdo bulletinPdo = activeObjects.create(BulletinPdo.class);
+        int id = bulletin.getId();
 
-        bulletinPdo.setProjectKey(projectKey);
-        bulletinPdo.setBody(bulletin.getBody());
-        bulletinPdo.setCreatedBy(jiraAuthenticationContext.getUser().getKey());
-        bulletinPdo.setCreatedAt(System.currentTimeMillis());
-        bulletinPdo.setUpdatedAt(System.currentTimeMillis());
-        bulletinPdo.save();
+        if (id <= 0) {
+            BulletinPdo bulletinPdo = activeObjects.create(BulletinPdo.class);
+            bulletinPdo.setProjectKey(projectKey);
+            bulletinPdo.setBody(bulletin.getBody());
+            bulletinPdo.setCreatedBy(jiraAuthenticationContext.getUser().getKey());
+            bulletinPdo.setCreatedAt(System.currentTimeMillis());
+            bulletinPdo.setUpdatedAt(System.currentTimeMillis());
+            bulletinPdo.save();
 
-        BulletinDto bulletinDto = new BulletinDto(
-                bulletinPdo.getID(),
-                bulletinPdo.getBody(),
-                processor.markdownToHtml(bulletinPdo.getBody()),
-                bulletinPdo.getCreatedBy(),
-                bulletinPdo.getCreatedAt(),
-                bulletinPdo.getUpdatedAt());
+            BulletinDto bulletinDto = bulletinPdo2Dto(processor, bulletinPdo);
+            return Response.ok(bulletinDto).build();
+        } else {
+            BulletinPdo bulletinPdo = findFirst(projectKey, id);
+            if (bulletinPdo != null) {
+                bulletinPdo.setBody(bulletin.getBody());
+                bulletinPdo.setUpdatedAt(System.currentTimeMillis());
+                bulletinPdo.save();
 
-        return Response.ok(bulletinDto).build();
+                BulletinDto bulletinDto = bulletinPdo2Dto(processor, bulletinPdo);
+                return Response.ok(bulletinDto).build();
+            } else {
+                return Response.status(404).build();
+            }
+        }
     }
 
     @DELETE
@@ -95,14 +122,32 @@ public class BoardsResource {
             @PathParam("projectKey") String projectKey,
             @PathParam("id") int id) {
 
+        BulletinPdo bulletinPdo = findFirst(projectKey, id);
+
+        if (bulletinPdo != null) {
+            activeObjects.delete(bulletinPdo);
+        }
+
+        return Response.ok(new MessageDto("OK")).build();
+    }
+
+    private @Nullable BulletinPdo findFirst(String projectKey, int id) {
         BulletinPdo[] bulletinPdos = activeObjects.find(
                 BulletinPdo.class,
                 Query.select().where("PROJECT_KEY = ? AND ID = ?", projectKey, id));
 
-        if (bulletinPdos.length >= 1) {
-            activeObjects.delete(bulletinPdos[0]);
-        }
+        return bulletinPdos.length > 0 ? bulletinPdos[0] : null;
+    }
 
-        return Response.ok(new MessageDto("OK")).build();
+    private BulletinDto bulletinPdo2Dto(PegDownProcessor pegDownProcessor, BulletinPdo bulletinPdo) {
+        String body = bulletinPdo.getBody();
+
+        return new BulletinDto(
+                bulletinPdo.getID(),
+                body,
+                (body == null) ? null : pegDownProcessor.markdownToHtml(body),
+                bulletinPdo.getCreatedBy(),
+                bulletinPdo.getCreatedAt(),
+                bulletinPdo.getUpdatedAt());
     }
 }

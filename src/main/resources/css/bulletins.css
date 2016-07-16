@@ -60,7 +60,6 @@
     bottom: 110px;
     overflow-y: auto;
     width: 100%;
-    border-radius: 2px;
 }
 
 .bulletins-bulletins::-webkit-scrollbar {
@@ -73,6 +72,20 @@
     border-right-width: 1px;
     padding: 10px;
     height: initial;
+    border-radius: 2px;
+}
+
+.bulletins-bulletin .bulletins-icon-more {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 6px;
+    cursor: pointer;
+    opacity: .5;
+}
+
+.bulletins-bulletin .bulletins-icon-more:hover {
+    opacity: 1;
 }
 
 .bulletins-bulletin h1 {

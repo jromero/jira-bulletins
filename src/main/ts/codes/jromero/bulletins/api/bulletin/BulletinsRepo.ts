@@ -6,8 +6,12 @@ class BulletinsRepo {
 
   }
 
-  findAll(projectKey: string, callback: (data: GetBulletinsResponse, textStatus: string, jqXHR: JQueryXHR) => any) : JQueryXHR {
+  findAll(projectKey: string, callback: (response: GetBulletinsResponse, textStatus: string, jqXHR: JQueryXHR) => any) : JQueryXHR {
     return AJS.$.get(`${this._basePath}/boards/${projectKey}/bulletins`, callback)
+  }
+
+  findById(projectKey: string, id: number, callback: (bulletin: Bulletin, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR {
+    return AJS.$.get(`${this._basePath}/boards/${projectKey}/bulletins/${id}`, callback)
   }
 
   save(projectKey: string, bulletin: Bulletin, callback: (data: Bulletin, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR {

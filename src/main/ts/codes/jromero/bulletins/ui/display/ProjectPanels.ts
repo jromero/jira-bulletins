@@ -1,5 +1,6 @@
 class ProjectPanels {
 
+  private DATA_BULLETIN_ID = "data-bulletin-id"
   private _element: JElement
   private _menu: JElement
   private _projectsPanes: Map<JQuery> = new Map<JQuery>()
@@ -45,12 +46,16 @@ class ProjectPanels {
     this._element.append(projectPane)
   }
 
-  addBulletin(projectKey: string, contents: string) {
+  addBulletin(projectKey: string, bulletin: Bulletin) {
     var projectPane = this._projectsPanes.get(projectKey)
     if (projectPane != null) {
       projectPane.find(".bulletins-bulletins").append(
         `<div class="bulletins-bulletin aui-page-panel">
-            ${contents}
+            ${bulletin.rendered}
+            <span class="bulletins-icon-more aui-icon aui-icon-small aui-iconfont-more" 
+                ${this.DATA_BULLETIN_ID}="${bulletin.id}">
+                More
+            </span>
           </div>`
       )
     }
@@ -74,15 +79,30 @@ class ProjectPanels {
 
     that._bulletinsRepo.findAll(projectKey, function (response) {
       for (let bulletin of response.bulletins) {
-        that.addBulletin(projectKey, bulletin.rendered)
+        that.addBulletin(projectKey, bulletin)
       }
     })
   }
 
-  setOnAddPostClickListener(projectKey: string, callback: (event: JQueryEventObject) => any) {
+  setOnAddPostClickListener(projectKey: string, callback: () => any) {
     var pane = this._projectsPanes.get(projectKey)
     if (pane != null) {
       pane.find(`#${this.postButtonId(projectKey)}`).click(callback)
+    }
+  }
+
+  setOnEditPostClickListener(projectKey: string, callback: (bulletinId: number) => any) {
+    var that = this
+    var pane = this._projectsPanes.get(projectKey)
+    if (pane != null) {
+      pane.on("click", ".bulletins-bulletin > .aui-iconfont-more", function (eventObject, args) {
+        var bulletinId = parseInt(AJS.$(this).attr(that.DATA_BULLETIN_ID), 10)
+        if (bulletinId) {
+          callback(bulletinId)
+        } else {
+          AJS.log(`Could not find bulletin id on ${JSON.stringify(this)}`)
+        }
+      })
     }
   }
 
