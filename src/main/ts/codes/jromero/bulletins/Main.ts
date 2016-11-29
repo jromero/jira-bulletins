@@ -15,9 +15,10 @@ AJS.toInit(function () {
   if (matches != null && matches.length == 3) {
     var boardId = matches[2]
     var bulletinsRepo = new BulletinsRepo()
+    var userRepo = new UserRepo()
     var bulletinBoard = new BulletinBoard("Bulletin Board", 350)
     var projectPanels = new ProjectPanels(bulletinsRepo)
-    var projectPanelsController = new ProjectPanelsController(bulletinsRepo, projectPanels);
+    var projectPanelsController = new ProjectPanelsController(bulletinsRepo, userRepo, projectPanels);
 
     AJS.$("body").append(bulletinBoard.element)
 

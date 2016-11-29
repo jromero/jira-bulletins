@@ -2,9 +2,11 @@ class ProjectPanelsController {
 
   private _bulletinsRepo: BulletinsRepo
   private _projectPanels: ProjectPanels
+  private _userRepo: UserRepo
 
-  constructor(bulletinsRepo: BulletinsRepo, projectPanels: ProjectPanels) {
+  constructor(bulletinsRepo: BulletinsRepo, userRepo: UserRepo, projectPanels: ProjectPanels) {
     this._bulletinsRepo = bulletinsRepo
+    this._userRepo = userRepo
     this._projectPanels = projectPanels
   }
 
@@ -24,6 +26,7 @@ class ProjectPanelsController {
       AJS.log(`Displaying dialog for ${projectKey}, bulletin`)
       var postDialog = new EditDialog(
         that._bulletinsRepo,
+        that._userRepo,
         that._projectPanels,
         projectKey,
         bulletinId

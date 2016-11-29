@@ -115,3 +115,12 @@
 .bulletins-bulletin img {
     max-width: 100%;
 }
+
+.bulletins-detail {
+    text-align: right;
+}
+
+.bulletins-rendered:hover {
+    box-shadow: 0 0 0 1px #ccc;
+    background-color: #fff;
+}
